@@ -6,7 +6,7 @@ const photographerTemplate = (data) => {
   const getUserCardDOM = () => {
     const htmlString = `
     <article id="${id}" class="profile-card">
-      <a href="">      
+      <a href="" aria-label="Lien vers le profil de ${name}">      
         <div class="profile-card__image">
           <img src="${picture}" alt="${name}">
         </div>
@@ -15,7 +15,7 @@ const photographerTemplate = (data) => {
           <div class="profile-card__info">
             <p class="profile-location">${city}, ${country}</p>
             <p class="profile-tagline">${tagline}</p>
-            <p class="profile-price">€${price}/day</p>
+            <p class="profile-price" aria-label="Cout journalier">${price}€/jour</p>
           </div>
         </div>
       </a>
