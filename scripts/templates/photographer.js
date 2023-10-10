@@ -6,17 +6,19 @@ const photographerTemplate = (data) => {
   const getUserCardDOM = () => {
     const htmlString = `
     <article id="${id}" class="profile-card">
-      <div class="profile-card__image">
-        <img src="${picture}" alt="${name}">
-      </div>
-      <div class="profile-card__details">
-        <h2>${name}</h2>
-        <div class="profile-card__info">
-          <p class="profile-location">${city}, ${country}</p>
-          <p class="profile-tagline">${tagline}</p>
-          <p class="profile-price">€${price}/day</p>
+      <a href="">      
+        <div class="profile-card__image">
+          <img src="${picture}" alt="${name}">
         </div>
-      </div>
+        <div class="profile-card__details">
+          <h2>${name}</h2>
+          <div class="profile-card__info">
+            <p class="profile-location">${city}, ${country}</p>
+            <p class="profile-tagline">${tagline}</p>
+            <p class="profile-price">€${price}/day</p>
+          </div>
+        </div>
+      </a>
     </article>
   `;
     const parser = new DOMParser();
