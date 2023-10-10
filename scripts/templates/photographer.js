@@ -1,17 +1,27 @@
 const photographerTemplate = (data) => {
   const { id, name, city, country, tagline, price, portrait } = data;
 
-  const picture = `assets/photographers/${portrait}`;
+  const picture = `../assets/photographers/${portrait}`;
 
   const getUserCardDOM = () => {
-    const article = document.createElement("article");
-    const img = document.createElement("img");
-    img.setAttribute("src", picture);
-    const h2 = document.createElement("h2");
-    h2.textContent = name;
-    article.appendChild(img);
-    article.appendChild(h2);
-    return article;
+    const htmlString = `
+    <article id="${id}" class="profile-card">
+      <div class="profile-card__image">
+        <img src="${picture}" alt="${name}">
+      </div>
+      <div class="profile-card__details">
+        <h2>${name}</h2>
+        <div class="profile-card__info">
+          <p class="profile-location">${city}, ${country}</p>
+          <p class="profile-tagline">${tagline}</p>
+          <p class="profile-price">€${price}/day</p>
+        </div>
+      </div>
+    </article>
+  `;
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, "text/html");
+    return doc.body.firstChild;
   };
   return { name, picture, getUserCardDOM };
 };
