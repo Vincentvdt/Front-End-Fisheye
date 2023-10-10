@@ -2,11 +2,10 @@ const photographerTemplate = (data) => {
   const { id, name, city, country, tagline, price, portrait } = data;
 
   const picture = `../assets/photographers/${portrait}`;
-
   const getUserCardDOM = () => {
     const htmlString = `
     <article id="${id}" class="profile-card">
-      <a href="" aria-label="Lien vers le profil de ${name}">      
+      <a href="photographer.html?id=${id}" aria-label="Lien vers le profil de ${name}">      
         <div class="profile-card__image">
           <img src="${picture}" alt="${name}">
         </div>
