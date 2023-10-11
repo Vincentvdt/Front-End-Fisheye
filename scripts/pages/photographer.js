@@ -5,11 +5,9 @@ const getPhotographer = async (id) => {
   const response = await fetch("../../data/photographers.json");
   const data = await response.json();
 
-  const photographer = data.photographers.find(
+  return data.photographers.find(
     (photograph) => photograph.id === parseInt(id)
   );
-
-  return photographer;
 };
 
 getPhotographer(id)
