@@ -12,7 +12,6 @@ const getPhotographer = async (id) => {
   return photographer;
 };
 
-// Usage example:
 getPhotographer(id)
   .then((photographer) => {
     console.log(photographer);
