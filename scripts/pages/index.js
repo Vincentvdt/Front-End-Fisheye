@@ -4,6 +4,17 @@ const getPhotographers = async () => {
 
   return data.photographers;
 };
+
+const getPhotographer = async (id) => {
+  const response = await fetch("../../data/photographers.json");
+  const data = await response.json();
+
+  return data.photographers.find(
+    (photograph) => photograph.id === parseInt(id)
+  );
+};
+
+getPhotographer(243);
 const displayData = async (photographers) => {
   const photographersSection = document.querySelector(".photographer_section");
 
