@@ -21,3 +21,9 @@ const init = async () => {
 };
 
 init();
+
+// TODO:  - Center card content
+//        - Refractoring cards links, only the img and the name in the link
+//        - ESLINT, Basic configuration
+//        - NPM install local, not just global
+//        - Lightbox, show position in the carrousel
