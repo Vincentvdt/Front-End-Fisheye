@@ -12,6 +12,13 @@ const getPhotographer = async (id) => {
   );
 };
 
+const getPhotographerMedia = async (id) => {
+  const response = await fetch("../../data/photographers.json");
+  const data = await response.json();
+
+  return data.media.filter((media) => media.photographerId === parseInt(id));
+};
+
 const populatePhotographHeader = (photographer) => {
   const picture = `../assets/photographers/${photographer.portrait}`;
 
@@ -31,6 +38,9 @@ const populatePhotographHeader = (photographer) => {
 };
 const main = async () => {
   const photographer = await getPhotographer(id);
+  const medias = await getPhotographerMedia(id);
+
+  console.log(medias);
 
   populatePhotographHeader(photographer);
 };
