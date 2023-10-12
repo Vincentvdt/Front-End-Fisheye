@@ -12,9 +12,23 @@
       <img class="logo" src="assets/images/logo.png"/>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+      <div class="photograph-header await">
+        <div class="photograph-header__content">
+          <div class="photograph-header__infos">
+            <h1 class="photograph-header__name"></h1>
+            <p class="photograph-header__location"></p>
+            <p class="photograph-header__tagline"></p>
+          </div>
+          <button class="btn-contact" onclick="displayModal()">Contactez-moi</button>
+        </div>
+
+        <div class="photograph-header__profile">
+          <div class="photograph-header__profile-wrapper">
+            <img alt="No image" src="#">
+          </div>
+        </div>
       </div>
+
     </main>
     <div id="contact_modal">
       <div class="modal">
