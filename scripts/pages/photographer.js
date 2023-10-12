@@ -24,7 +24,7 @@ const populatePhotographHeader = (photographer) => {
   );
   headerElement.classList.remove("await");
   nameElem.textContent = photographer.name;
-  locationElem.textContent = `${photographer.city},${photographer.country}`;
+  locationElem.textContent = `${photographer.city}, ${photographer.country}`;
   taglineElem.textContent = photographer.tagline;
   imgElem.src = picture;
   imgElem.alt = photographer.name;
