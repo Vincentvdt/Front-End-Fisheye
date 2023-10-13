@@ -30,9 +30,13 @@
         </div>
       </section>
       <section class="portfolio">
-        <div class="filters">
-          <h2>Trier par </h2>
-          <label for=""></label><select id="" name=""></select>
+        <div class="filters" onchange="sortMedia()">
+          <label for="mediasFilter">Trier par :</label>
+          <select id="mediasFilter" name="medias">
+            <option value="popularity">Popularité</option>
+            <option value="date">Date</option>
+            <option value="title">Titre</option>
+          </select>
         </div>
         <div class="gallery">
 

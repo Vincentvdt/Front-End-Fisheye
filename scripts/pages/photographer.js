@@ -86,18 +86,27 @@ const filterBy = (medias, sortType) => {
   });
 };
 
-const main = async () => {
-  const photographer = await getPhotographer(id);
+const sortMedia = async () => {
   const medias = await getPhotographerMedia(id);
-  const sortedMedias = filterBy(medias, "popularity");
-  console.log(sortedMedias);
+  const select = document.getElementById("mediasFilter");
+  const sortedMedias = filterBy(medias, select.value);
+  await displayGallery(sortedMedias);
+};
 
-  populatePhotographHeader(photographer);
-
-  for (const media of sortedMedias) {
+const displayGallery = async (medias) => {
+  gallery.innerHTML = "";
+  for (const media of medias) {
     const mediaDom = await getGalleryCardDom(media);
     gallery.appendChild(mediaDom);
   }
+};
+
+const main = async () => {
+  const photographer = await getPhotographer(id);
+  const medias = await getPhotographerMedia(id);
+  await displayGallery(medias);
+
+  populatePhotographHeader(photographer);
 };
 
 main();
