@@ -70,9 +70,27 @@ const populatePhotographHeader = (photographer) => {
   imgElem.src = picture;
   imgElem.alt = photographer.name;
 };
+
+const filterBy = (medias, sortType) => {
+  return medias.sort((a, b) => {
+    switch (sortType) {
+      case "date":
+        return new Date(a.date) - new Date(b.date);
+      case "popularity":
+        return b.likes - a.likes;
+      case "title":
+        return a.title.localeCompare(b.title);
+      default:
+        return 0; // No sorting by default
+    }
+  });
+};
+
 const main = async () => {
   const photographer = await getPhotographer(id);
   const medias = await getPhotographerMedia(id);
+  const filteredMedia = filterBy(medias, "title");
+  console.log(filteredMedia);
 
   populatePhotographHeader(photographer);
 
