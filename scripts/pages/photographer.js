@@ -1,13 +1,15 @@
-const mainDOM = document.querySelector("main");
 const gallery = document.querySelector(".gallery");
 
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
 
-const getPhotographer = async (id) => {
-  const response = await fetch("../../data/photographers.json");
-  const data = await response.json();
+const fetchData = async (url) => {
+  const res = await fetch(url);
+  return await res.json();
+};
 
+const getPhotographer = async (id) => {
+  const data = await fetchData("../../data/photographers.json");
   return data.photographers.find(
     (photograph) => photograph.id === parseInt(id)
   );
@@ -87,8 +89,8 @@ const filterBy = (medias, sortType) => {
 };
 
 const sortMedia = async () => {
-  const medias = await getPhotographerMedia(id);
   const select = document.getElementById("mediasFilter");
+  const medias = await getPhotographerMedia(id);
   const sortedMedias = filterBy(medias, select.value);
   await displayGallery(sortedMedias);
 };
