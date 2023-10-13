@@ -89,12 +89,12 @@ const filterBy = (medias, sortType) => {
 const main = async () => {
   const photographer = await getPhotographer(id);
   const medias = await getPhotographerMedia(id);
-  const filteredMedia = filterBy(medias, "title");
-  console.log(filteredMedia);
+  const sortedMedias = filterBy(medias, "popularity");
+  console.log(sortedMedias);
 
   populatePhotographHeader(photographer);
 
-  for (const media of medias) {
+  for (const media of sortedMedias) {
     const mediaDom = await getGalleryCardDom(media);
     gallery.appendChild(mediaDom);
   }
