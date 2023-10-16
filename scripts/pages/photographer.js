@@ -1,38 +1,52 @@
 const gallery = document.querySelector(".gallery");
+const select = document.getElementById("mediasFilter");
+
+let medias = null;
+let photographer = null;
 
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
-
 const fetchData = async (url) => {
   const res = await fetch(url);
   return await res.json();
 };
 
-const getPhotographer = async (id) => {
-  const data = await fetchData("../../data/photographers.json");
-  return data.photographers.find(
-    (photograph) => photograph.id === parseInt(id)
-  );
-};
+const main = async () => {
+  const datas = await fetchData("../../data/photographers.json");
+  const getPhotographerByID = async (id) => {
+    if (!photographer) {
+      photographer = datas.photographers.find(
+        (photograph) => photograph.id === parseInt(id)
+      );
+    }
+    return photographer;
+  };
 
-const getPhotographerMedia = async (id) => {
-  const response = await fetch("../../data/photographers.json");
-  const data = await response.json();
+  const getMedias = async (id) => {
+    if (!medias) {
+      medias = datas.media.filter(
+        (media) => media.photographerId === parseInt(id)
+      );
+    }
+    return medias;
+  };
 
-  return data.media.filter((media) => media.photographerId === parseInt(id));
-};
+  const getGalleryCardDom = async (card) => {
+    const path = ` ../../assets/medias/${card.image || card.video}`;
 
-const getGalleryCardDom = async (card) => {
-  const path = ` ../../assets/medias/${card.image || card.video}`;
-  const media = card.image
-    ? `<img alt="${card.title}" src="${path}">`
-    : card.video
-    ? `<video controls>
-      <source src="${path}" type="video/mp4"/>
-    </video>`
-    : "";
+    let media;
 
-  const cardHTML = `
+    if (card.image) {
+      media = `<img alt="${card.title}" src="${path}">`;
+    } else if (card.video) {
+      media = `<video controls>
+                <source src="${path}" type="video/mp4"/>
+               </video>`;
+    } else {
+      media = "";
+    }
+
+    const cardHTML = `
     <article id="${card.photographerId}-${card.id}" class="gallery-card">
       <a href="#" class="gallery-card__media">
         ${media}
@@ -49,66 +63,64 @@ const getGalleryCardDom = async (card) => {
     </article>
   `;
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(cardHTML, "text/html");
-  return doc.body.firstChild;
-};
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(cardHTML, "text/html");
+    return doc.body.firstChild;
+  };
 
-const populatePhotographHeader = (photographer) => {
-  const picture = `../assets/photographers/${photographer.portrait}`; // Modifié le chemin d'accès
+  const populatePhotographHeader = (photographer) => {
+    const picture = `../assets/photographers/${photographer.portrait}`; // Modifié le chemin d'accès
 
-  const headerElement = document.querySelector(".photograph-header");
-  const nameElem = document.querySelector(".photograph-header__name");
-  const locationElem = document.querySelector(".photograph-header__location");
-  const taglineElem = document.querySelector(".photograph-header__tagline");
-  const imgElem = document.querySelector(
-    ".photograph-header__profile-wrapper img"
-  );
+    const headerElement = document.querySelector(".photograph-header");
+    const nameElem = document.querySelector(".photograph-header__name");
+    const locationElem = document.querySelector(".photograph-header__location");
+    const taglineElem = document.querySelector(".photograph-header__tagline");
+    const imgElem = document.querySelector(
+      ".photograph-header__profile-wrapper img"
+    );
 
-  headerElement.classList.remove("await");
-  nameElem.textContent = photographer.name;
-  locationElem.textContent = `${photographer.city}, ${photographer.country}`;
-  taglineElem.textContent = photographer.tagline;
-  imgElem.src = picture;
-  imgElem.alt = photographer.name;
-};
+    headerElement.classList.remove("await");
+    nameElem.textContent = photographer.name;
+    locationElem.textContent = `${photographer.city}, ${photographer.country}`;
+    taglineElem.textContent = photographer.tagline;
+    imgElem.src = picture;
+    imgElem.alt = photographer.name;
+  };
 
-const filterBy = (medias, sortType) => {
-  return medias.sort((a, b) => {
-    switch (sortType) {
-      case "date":
-        return new Date(a.date) - new Date(b.date);
-      case "popularity":
-        return b.likes - a.likes;
-      case "title":
-        return a.title.localeCompare(b.title);
-      default:
-        return 0; // No sorting by default
+  const filterBy = (medias, sortType) => {
+    medias.sort((a, b) => {
+      switch (sortType) {
+        case "date":
+          return new Date(a.date) - new Date(b.date);
+        case "popularity":
+          return b.likes - a.likes;
+        case "title":
+          return a.title.localeCompare(b.title);
+        default:
+          return 0;
+      }
+    });
+  };
+
+  const sortMedia = async () => {
+    filterBy(medias, select.value);
+    await displayGallery(medias);
+  };
+
+  const displayGallery = async (medias) => {
+    gallery.innerHTML = "";
+    for (const [index, media] of Object.entries(medias)) {
+      const mediaDom = await getGalleryCardDom(media);
+      gallery.appendChild(mediaDom);
+      console.log(index);
     }
-  });
-};
+  };
 
-const sortMedia = async () => {
-  const select = document.getElementById("mediasFilter");
-  const medias = await getPhotographerMedia(id);
-  const sortedMedias = filterBy(medias, select.value);
-  await displayGallery(sortedMedias);
-};
-
-const displayGallery = async (medias) => {
-  gallery.innerHTML = "";
-  for (const media of medias) {
-    const mediaDom = await getGalleryCardDom(media);
-    gallery.appendChild(mediaDom);
-  }
-};
-
-const main = async () => {
-  const photographer = await getPhotographer(id);
-  const medias = await getPhotographerMedia(id);
-  await displayGallery(medias);
+  await getPhotographerByID(id);
+  await getMedias(id);
 
   populatePhotographHeader(photographer);
+  await sortMedia();
 };
 
 main();

@@ -128,10 +128,11 @@
     object-fit: cover;
 }
 
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 160px;
+    grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: center;
     margin: 0 100px;
@@ -141,7 +142,7 @@
 .gallery-card {
     display: flex;
     width: 350px;
-    height: 341px;
+    height: 340px;
     flex-direction: column;
     align-items: center;
     gap: 10px;

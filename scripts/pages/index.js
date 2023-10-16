@@ -27,3 +27,4 @@ init();
 //        - ESLINT, Basic configuration
 //        - NPM install local, not just global
 //        - Lightbox, show position in the carrousel
+//        - Refractoring photographer.js functions
