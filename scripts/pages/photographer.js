@@ -32,18 +32,20 @@ const main = async () => {
   };
 
   const getGalleryCardDom = async (card) => {
-    const path = ` ../../assets/medias/${card.image || card.video}`;
+    const resWidth = "350";
+    const resHeight = "300";
 
-    let media;
+    let path = "";
+    let media = "";
 
     if (card.image) {
+      path = `../../assets/medias/${resWidth}x${resHeight}-${card.image}`;
       media = `<img alt="${card.title}" src="${path}">`;
     } else if (card.video) {
+      path = `../../assets/medias/${card.video}`;
       media = `<video controls>
-                <source src="${path}" type="video/mp4"/>
+                  <source src="${path}" type="video/mp4"/>
                </video>`;
-    } else {
-      media = "";
     }
 
     const cardHTML = `
