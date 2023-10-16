@@ -1,38 +1,17 @@
 const gallery = document.querySelector(".gallery");
 const select = document.getElementById("mediasFilter");
 
-let medias = null;
-let photographer = null;
-
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
-const fetchData = async (url) => {
-  const res = await fetch(url);
-  return await res.json();
-};
 
 const main = async () => {
-  const datas = await fetchData("../../data/photographers.json");
-  const getPhotographerByID = async (id) => {
-    if (!photographer) {
-      photographer = datas.photographers.find(
-        (photograph) => photograph.id === parseInt(id)
-      );
-    }
-    return photographer;
-  };
-
-  const getMedias = async (id) => {
-    if (!medias) {
-      medias = datas.media.filter(
-        (media) => media.photographerId === parseInt(id)
-      );
-    }
-    return medias;
-  };
+  const photographerServices = await photographerService();
+  const photographer = await photographerServices.getPhotographerByID(id);
+  const medias = await photographerServices.getMedias(id);
 
   const populatePhotographHeader = (photographer) => {
-    const picture = `../assets/photographers/${photographer.portrait}`; // Modifié le chemin d'accès
+    const { name, city, country, tagline, price, portrait } = photographer;
+    const picture = `../assets/photographers/${portrait}`; // Modifié le chemin d'accès
 
     const headerElement = document.querySelector(".photograph-header");
     const nameElem = document.querySelector(".photograph-header__name");
@@ -43,11 +22,11 @@ const main = async () => {
     );
 
     headerElement.classList.remove("await");
-    nameElem.textContent = photographer.name;
-    locationElem.textContent = `${photographer.city}, ${photographer.country}`;
-    taglineElem.textContent = photographer.tagline;
+    nameElem.textContent = name;
+    locationElem.textContent = `${city}, ${country}`;
+    taglineElem.textContent = tagline;
     imgElem.src = picture;
-    imgElem.alt = photographer.name;
+    imgElem.alt = name;
   };
 
   const filterBy = (medias, sortType) => {
@@ -70,9 +49,10 @@ const main = async () => {
     await displayGallery(medias);
   };
 
+  select.addEventListener("change", sortMedia);
+
   const displayGallery = async (medias) => {
     gallery.innerHTML = "";
-
     for (const [index, media] of Object.entries(medias)) {
       const galleryModel = galleryCardTemplate(media);
       const cardDOM = await galleryModel.getGalleryCardDOM();
@@ -80,11 +60,10 @@ const main = async () => {
     }
   };
 
-  await getPhotographerByID(id);
-  await getMedias(id);
-
   populatePhotographHeader(photographer);
   await sortMedia();
+
+  return { sortMedia };
 };
 
 main();
