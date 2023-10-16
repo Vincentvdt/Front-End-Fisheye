@@ -5,6 +5,10 @@ const photographerService = async () => {
   let medias = null;
   let photographer = null;
 
+  const getAllPhotographers = async () => {
+    return data.photographers;
+  };
+
   const getPhotographerByID = async (id) => {
     const { photographers } = data;
     if (!photographer) {
@@ -24,5 +28,5 @@ const photographerService = async () => {
     return medias;
   };
 
-  return { getPhotographerByID, getMedias };
+  return { getAllPhotographers, getPhotographerByID, getMedias };
 };

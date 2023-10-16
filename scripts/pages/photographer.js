@@ -4,7 +4,7 @@ const select = document.getElementById("mediasFilter");
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
 
-const main = async () => {
+const init = async () => {
   const photographerServices = await photographerService();
   const photographer = await photographerServices.getPhotographerByID(id);
   const medias = await photographerServices.getMedias(id);
@@ -66,4 +66,4 @@ const main = async () => {
   return { sortMedia };
 };
 
-main();
+init();
