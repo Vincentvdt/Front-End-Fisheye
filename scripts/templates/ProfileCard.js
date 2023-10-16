@@ -1,7 +1,8 @@
 const photographerTemplate = (data) => {
   const { id, name, city, country, tagline, price, portrait } = data;
+  const imgRes = 200;
 
-  const picture = `../assets/photographers/${portrait}`;
+  const picture = `../assets/photographers/${200}x${200}-${portrait}`;
   const getUserCardDOM = () => {
     const htmlString = `
     <article id="${id}" class="profile-card">
