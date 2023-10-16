@@ -75,8 +75,8 @@ const main = async () => {
 
     for (const [index, media] of Object.entries(medias)) {
       const galleryModel = galleryCardTemplate(media);
-      gallery.appendChild(await galleryModel.getGalleryCardDOM());
-      console.log(index);
+      const cardDOM = await galleryModel.getGalleryCardDOM();
+      gallery.appendChild(cardDOM);
     }
   };
 
