@@ -11,7 +11,7 @@ const displayData = async (photographers) => {
 const init = async () => {
   const services = await photographerService();
   const photographers = await services.getAllPhotographers();
-  displayData(photographers);
+  await displayData(photographers);
 };
 
 init();
@@ -21,3 +21,6 @@ init();
 //        - ESLINT, Basic configuration
 //        - NPM install local, not just global
 //        - Lightbox, show position in the carrousel
+//        - ARIA FIGMA
+//        - Validation form + navigation
+//        - aria hidden when modal or lightbox is opened

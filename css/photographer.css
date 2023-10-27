@@ -198,9 +198,18 @@
     margin: 0;
 }
 
-.gallery-card__likes svg {
+.likeBtn {
+    fill: #525252;
     width: 21px;
     height: 24px;
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.gallery-card.liked .likeBtn {
+    fill: #901C1C;
 }
 
 .modal {
@@ -274,6 +283,10 @@ form input {
     display: inline-flex;
     align-items: center;
     gap: 5px;
+
+}
+
+.totalLikes p {
     color: #000;
     text-align: right;
     font-family: DM Sans, sans-serif;
@@ -284,11 +297,16 @@ form input {
 }
 
 .price {
+    display: flex;
+    gap: 5px;
+}
+
+.price p {
     color: #000;
     text-align: center;
     font-family: DM Sans, sans-serif;
     font-size: 24px;
-
-    fot-weight: 500;
-
+    font-weight: 500;
+    margin: 0
 }
+

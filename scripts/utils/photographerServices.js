@@ -28,5 +28,9 @@ const photographerService = async () => {
     return medias;
   };
 
-  return { getAllPhotographers, getPhotographerByID, getMedias };
+  const getPostByID = async (id) => {
+    return medias.find((media) => media.id === parseInt(id));
+  };
+
+  return { getAllPhotographers, getPhotographerByID, getMedias, getPostByID };
 };
