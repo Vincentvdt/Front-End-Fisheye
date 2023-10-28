@@ -63,12 +63,37 @@
           <h2>Contactez-moi</h2>
           <img alt="modal" onclick="closeModal()" src="assets/icons/close.svg"/>
         </header>
-        <form>
-          <div>
-            <label>Prénom</label>
-            <label>
-              <input/>
+        <form class="modalForm"
+              method="post"
+              name="reserve"
+              novalidate
+              onsubmit="return validate(this)">
+          <div class="formInput">
+            <label for="first">
+              Prénom <span class="input-required">*</span>
             </label>
+            <input class="text-control" id="first" minlength="2" name="first" required type="text"/>
+          </div>
+
+          <div class="formInput">
+            <label for="last">
+              Nom <span class="input-required">*</span>
+            </label>
+            <input class="text-control" id="last" minlength="2" name="last" required type="text"/>
+          </div>
+
+          <div class="formInput">
+            <label for="email">
+              Email <span class="input-required">*</span>
+            </label>
+            <input class="text-control" id="email" minlength="2" name="email" required type="email"/>
+          </div>
+
+          <div class="formInput">
+            <label for="message">
+              Votre message <span class="input-required">*</span>
+            </label>
+            <textarea class="text-control" id="message" minlength="2" name="message" required></textarea>
           </div>
           <button class="contact_button">Envoyer</button>
         </form>

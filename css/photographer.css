@@ -1,5 +1,6 @@
-#contact_modal {
-    display: none;
+
+body {
+    position: relative;
 }
 
 .photograph-header {
@@ -98,6 +99,20 @@
     border: none;
     cursor: pointer;
     transition: 200ms ease-in-out;
+}
+
+.contact_button {
+    border-radius: 5px;
+    background: #901C1C;
+    color: #FFF;
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 23px 50px;
+    border: none;
+    cursor: pointer;
 }
 
 .btn-contact:hover {
@@ -212,10 +227,24 @@
     fill: #901C1C;
 }
 
+#contact_modal {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+
+}
+
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 599px;
+    height: 830px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -237,6 +266,8 @@
     font-size: 64px;
     font-weight: normal;
     text-align: center;
+    color: #000;
+
 }
 
 form {
@@ -249,6 +280,9 @@ form {
 form label {
     color: #312E2E;
     font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 form div {
@@ -259,11 +293,23 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+form input, form textarea {
     width: 100%;
     height: 68px;
     border: none;
     border-radius: 5px;
+    color: #312E2E;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 15px;
+}
+
+form textarea {
+    resize: none;
+    height: 170px;
+    padding: 15px 0 0 15px
 }
 
 .tarif {
@@ -278,6 +324,7 @@ form input {
     padding: 20px 35px;
     border-radius: 5px 5px 0;
     background: #DB8876;
+    z-index: 9998;
 }
 
 .totalLikes {
