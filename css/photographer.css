@@ -269,6 +269,7 @@ form input {
 .tarif {
     position: fixed;
     bottom: 0;
+    min-width: 300px;
     right: 52px;
     display: flex;
     justify-content: center;
