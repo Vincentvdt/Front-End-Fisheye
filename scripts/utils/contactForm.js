@@ -67,20 +67,3 @@ const modalFocusableElements = modalForm.querySelectorAll(focusableElements);
 const firstElement = modalFocusableElements[0];
 const lastElement = modalFocusableElements[modalFocusableElements.length - 1];
 
-document.addEventListener("keydown", function (e) {
-  const isTabPressed = e.key === "Tab" || e.keyCode === 9;
-
-  if (!isTabPressed) {
-    return;
-  }
-
-  if (e.shiftKey) {
-    if (document.activeElement === firstElement) {
-      lastElement.focus();
-      e.preventDefault();
-    }
-  } else if (document.activeElement === lastElement) {
-    firstElement.focus();
-    e.preventDefault();
-  }
-});

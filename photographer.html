@@ -8,20 +8,53 @@
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <aside aria-hidden="false" class="tarif">
-      <div class="totalLikes">
-        <p>-</p>
-        <svg fill="none" height="19" viewBox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg">
-          <path
-              d="M9.125 18.35L7.85625 17.03C3.35 12.36 0.375 9.28 0.375 5.5C0.375 2.42 2.4925 0 5.1875 0C6.71 0 8.17125 0.81 9.125 2.09C10.0787 0.81 11.54 0 13.0625 0C15.7575 0 17.875 2.42 17.875 5.5C17.875 9.28 14.9 12.36 10.3938 17.04L9.125 18.35Z"
-              fill="black"/>
-        </svg>
+    <div class="lightbox-modal">
+      <div class="lightbox">
+        <button class="close-lightbox_btn">
+          <svg fill="none" height="72" viewBox="0 0 72 72" width="72" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z"
+                fill="#911C1C"/>
+          </svg>
+        </button>
+        <div class="lightbox-carousel">
+          <a class="carousel-arrow arrow-prev" href="">
+            <svg fill="none" height="96" viewBox="0 0 96 96" width="96" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_120_800)">
+                <path d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
+                      fill="#911C1C"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_120_800">
+                  <rect fill="white" height="96" transform="translate(96) rotate(90)" width="96"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+          <div class="carousel-content">
+            <ul class="carousel-gallery">
+              <li class="carousel-item"><img alt="" src="./assets/medias/Travel_Tower.jpg"></li>
+              <li class="carousel-item"><img alt="" src="./assets/medias/Portrait_AfternoonBreak.jpg"></li>
+              <li class="carousel-item"><img alt="" src="./assets/medias/Sport_2000_with_8.jpg"></li>
+            </ul>
+            <div class="carousel-img_title">Title</div>
+          </div>
+          <a class="carousel-arrow arrow-next" href="">
+            <svg fill="none" height="96" viewBox="0 0 96 96" width="96" xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_120_803)">
+                <path d="M34.3601 29.64L52.6801 48L34.3601 66.36L40.0001 72L64.0001 48L40.0001 24L34.3601 29.64Z"
+                      fill="#911C1C"/>
+              </g>
+              <defs>
+                <clipPath id="clip0_120_803">
+                  <rect fill="white" height="96" transform="translate(0 96) rotate(-90)" width="96"/>
+                </clipPath>
+              </defs>
+            </svg>
+          </a>
+        </div>
       </div>
-      <div class="price">
-        <p>-</p>
-        <p>€ / jour</p>
-      </div>
-    </aside>
+    </div>
     <header aria-hidden="false">
       <a href="./index.html">
         <img alt="fisheye logo" class="logo" src="assets/images/logo.png"/>
@@ -99,10 +132,24 @@
         </form>
       </div>
     </div>
+    <aside aria-hidden="false" class="tarif">
+      <div class="totalLikes">
+        <p>-</p>
+        <svg fill="none" height="19" viewBox="0 0 18 19" width="18" xmlns="http://www.w3.org/2000/svg">
+          <path
+              d="M9.125 18.35L7.85625 17.03C3.35 12.36 0.375 9.28 0.375 5.5C0.375 2.42 2.4925 0 5.1875 0C6.71 0 8.17125 0.81 9.125 2.09C10.0787 0.81 11.54 0 13.0625 0C15.7575 0 17.875 2.42 17.875 5.5C17.875 9.28 14.9 12.36 10.3938 17.04L9.125 18.35Z"
+              fill="black"/>
+        </svg>
+      </div>
+      <div class="price">
+        <p>-</p>
+        <p>€ / jour</p>
+      </div>
+    </aside>
     <script src="/scripts/utils/photographerServices.js"></script>
-    <script src="/scripts/templates/GalleryCard.js"></script>
-    <script src="/scripts/utils/contactForm.js"></script>
     <script src="/scripts/pages/photographer.js"></script>
+    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/templates/GalleryCard.js"></script>
 
   </body>
 </html>

@@ -1,5 +1,6 @@
 const galleryCardTemplate = (card) => {
-  const { id, photographerId, title, image, video, likes, date, price } = card;
+  const { id, photographerId, title, image, video, likes, date, price, index } =
+    card;
   const resWidth = "350";
   const resHeight = "300";
 
@@ -18,7 +19,7 @@ const galleryCardTemplate = (card) => {
 
   const getGalleryCardDOM = async () => {
     const cardHTML = `
-    <article id="${id}" class="gallery-card">
+    <article id="${id}" class="gallery-card" data-index="${index}">
       <a href="#" class="gallery-card__media">
         ${media}
       </a>

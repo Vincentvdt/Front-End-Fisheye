@@ -77,6 +77,7 @@ const init = async () => {
   const displayGallery = async (medias) => {
     gallery.innerHTML = "";
     for (const [index, media] of Object.entries(medias)) {
+      media.index = Number(index);
       const galleryModel = galleryCardTemplate(media);
 
       const cardDOM = await galleryModel.getGalleryCardDOM();
@@ -90,5 +91,22 @@ const init = async () => {
   populatePhotographInfos(photographer);
   await sortMedia();
 };
+document.addEventListener("keydown", function (e) {
+  const isTabPressed = e.key === "Tab" || e.keyCode === 9;
 
-init();
+  if (!isTabPressed) {
+    return;
+  }
+
+  if (e.shiftKey) {
+    if (document.activeElement === firstElement) {
+      lastElement.focus();
+      e.preventDefault();
+    }
+  } else if (document.activeElement === lastElement) {
+    firstElement.focus();
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", init);
