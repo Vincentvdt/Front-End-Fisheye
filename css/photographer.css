@@ -477,6 +477,8 @@ form textarea {
 
 
 .carousel-gallery {
+    width: 1050px;
+    height: 900px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -487,13 +489,8 @@ form textarea {
 }
 
 .carousel-item {
-    flex: 1 0 100%;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
     object-fit: contain;
+    width: 100%;
 }
 
 .carousel-img_title {

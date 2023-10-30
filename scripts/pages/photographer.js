@@ -17,6 +17,21 @@ const params = new URL(document.location).searchParams;
 const id = params.get("id");
 let focusableElements = null;
 
+const selectFocusableElementsExcept = (exceptElem) => {
+  // Get all focusable elements on the page
+  const focusableElements = document.querySelectorAll(
+    ' img, video ,a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+  );
+
+  // Get the modal element
+  const modalElement = document.querySelector(exceptElem);
+
+  // Filter out elements that are descendants of the modal
+  return Array.from(focusableElements).filter((element) => {
+    return !modalElement.contains(element);
+  });
+};
+
 const init = async () => {
   const photographerServices = await photographerService();
   const photographer = await photographerServices.getPhotographerByID(id);
@@ -93,23 +108,8 @@ const init = async () => {
     }
   };
 
-  const selectFocusableElementsExcept = (exceptElem) => {
-    // Get all focusable elements on the page
-    const focusableElements = document.querySelectorAll(
-      ' img, video ,a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
-    );
-
-    // Get the modal element
-    const modalElement = document.querySelector(exceptElem);
-
-    // Filter out elements that are descendants of the modal
-    return Array.from(focusableElements).filter((element) => {
-      return !modalElement.contains(element);
-    });
-  };
-
   populatePhotographInfos(photographer);
-  await sortMedia();
+  sortMedia();
 
   // Usage:
   focusableElements = selectFocusableElementsExcept("#contact_modal");
@@ -120,24 +120,55 @@ const lightboxCloseBtn = document.querySelector(".close-lightbox_btn");
 const lightbox = document.querySelector(".lightbox-modal");
 const lightboxPrevBtn = document.querySelector(".carousel-arrow.arrow-prev");
 const lightboxNextBtn = document.querySelector(".carousel-arrow.arrow-next");
+const lightboxGallery = document.querySelector(".carousel-gallery");
+focusableElements = selectFocusableElementsExcept(".lightbox-modal");
 
+let index = 0;
+
+const displayCarousel = async () => {
+  const photographerServices = await photographerService();
+  const medias = await photographerServices.getMedias(id);
+  lightboxGallery.innerHTML = "";
+
+  let media;
+
+  if (medias[index].image) {
+    const imgElem = document.createElement("img");
+    imgElem.src = `assets/medias/${medias[index].image}`;
+    imgElem.alt = medias[index].title;
+    media = imgElem;
+  } else if (medias[index].video) {
+    const videoElem = document.createElement("video");
+    videoElem.setAttribute("controls", "");
+    videoElem.src = `assets/medias/${medias[index].video}`;
+    videoElem.alt = medias[index].title;
+    media = videoElem;
+  }
+
+  media.classList.add("carousel-item");
+  lightboxGallery.appendChild(media);
+};
 const hiddenRestOfTheSite = () => {
-  main.setAttribute("aria-hidden", "true");
-  header.setAttribute("aria-hidden", "true");
-  tarif.setAttribute("aria-hidden", "true");
+  focusableElements.forEach(function (element) {
+    // Traitez chaque élément ici
+    element.setAttribute("aria-hidden", "true");
+    element.setAttribute("tabindex", "-1");
+  });
 };
 
 const showRestOfTheSite = () => {
-  main.setAttribute("aria-hidden", "false");
-  header.setAttribute("aria-hidden", "false");
-  tarif.setAttribute("aria-hidden", "false");
+  focusableElements.forEach(function (element) {
+    // Traitez chaque élément ici
+    element.setAttribute("aria-hidden", "false");
+    element.removeAttribute("tabindex");
+  });
 };
 const openLightbox = () => {
   body.classList.add("no-scroll");
   lightbox.style.display = "flex";
   lightbox.setAttribute("aria-hidden", "false");
   lightboxNextBtn.focus();
-
+  displayCarousel();
   hiddenRestOfTheSite();
 };
 const closeLightbox = () => {
@@ -151,9 +182,13 @@ const closeLightbox = () => {
 lightboxCloseBtn.addEventListener("click", closeLightbox);
 lightboxPrevBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  index--;
+  displayCarousel();
 });
 lightboxNextBtn.addEventListener("click", (e) => {
   e.preventDefault();
+  index++;
+  displayCarousel();
 });
 document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
