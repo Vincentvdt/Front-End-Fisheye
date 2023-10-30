@@ -9,6 +9,10 @@ const imgElem = document.querySelector(
   ".photograph-header__profile-wrapper img"
 );
 
+const main = document.querySelector("main");
+const header = document.querySelector("header");
+const tarif = document.querySelector(".tarif");
+
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
 
@@ -91,22 +95,50 @@ const init = async () => {
   populatePhotographInfos(photographer);
   await sortMedia();
 };
-document.addEventListener("keydown", function (e) {
-  const isTabPressed = e.key === "Tab" || e.keyCode === 9;
+document.addEventListener("DOMContentLoaded", init);
 
-  if (!isTabPressed) {
-    return;
-  }
+const lightboxCloseBtn = document.querySelector(".close-lightbox_btn");
+const lightbox = document.querySelector(".lightbox-modal");
+const lightboxPrevBtn = document.querySelector(".carousel-arrow.arrow-prev");
+const lightboxNextBtn = document.querySelector(".carousel-arrow.arrow-next");
 
-  if (e.shiftKey) {
-    if (document.activeElement === firstElement) {
-      lastElement.focus();
-      e.preventDefault();
-    }
-  } else if (document.activeElement === lastElement) {
-    firstElement.focus();
-    e.preventDefault();
+const hiddenRestOfTheSite = () => {
+  main.setAttribute("aria-hidden", "true");
+  header.setAttribute("aria-hidden", "true");
+  tarif.setAttribute("aria-hidden", "true");
+};
+
+const showRestOfTheSite = () => {
+  main.setAttribute("aria-hidden", "false");
+  header.setAttribute("aria-hidden", "false");
+  tarif.setAttribute("aria-hidden", "false");
+};
+const openLightbox = () => {
+  body.classList.add("no-scroll");
+  lightbox.style.display = "flex";
+  lightbox.setAttribute("aria-hidden", "false");
+  lightboxNextBtn.focus();
+
+  hiddenRestOfTheSite();
+};
+const closeLightbox = () => {
+  body.classList.remove("no-scroll");
+  lightbox.style.display = "none";
+  lightbox.setAttribute("aria-hidden", "true");
+
+  showRestOfTheSite();
+};
+
+lightboxCloseBtn.addEventListener("click", closeLightbox);
+lightboxPrevBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+});
+lightboxNextBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    closeModal();
+    closeLightbox();
   }
 });
-
-document.addEventListener("DOMContentLoaded", init);
