@@ -21,6 +21,7 @@ const displayModal = () => {
   }
 };
 
+// TODO : Tabindex pour la navigation
 const closeModal = () => {
   if (modalBackground.style.display !== "none") {
     modalBackground.style.display = "none";
