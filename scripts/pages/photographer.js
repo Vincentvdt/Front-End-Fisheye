@@ -15,6 +15,7 @@ const tarif = document.querySelector(".tarif");
 
 const params = new URL(document.location).searchParams;
 const id = params.get("id");
+let focusableElements = null;
 
 const init = async () => {
   const photographerServices = await photographerService();
@@ -56,9 +57,9 @@ const init = async () => {
     });
   };
 
-  const sortMedia = async () => {
+  const sortMedia = () => {
     filterBy(medias, select.value);
-    await displayGallery(medias);
+    displayGallery(medias);
   };
 
   select.addEventListener("change", sortMedia);
@@ -92,10 +93,28 @@ const init = async () => {
     }
   };
 
+  const selectFocusableElementsExcept = (exceptElem) => {
+    // Get all focusable elements on the page
+    const focusableElements = document.querySelectorAll(
+      ' img, video ,a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]'
+    );
+
+    // Get the modal element
+    const modalElement = document.querySelector(exceptElem);
+
+    // Filter out elements that are descendants of the modal
+    return Array.from(focusableElements).filter((element) => {
+      return !modalElement.contains(element);
+    });
+  };
+
   populatePhotographInfos(photographer);
   await sortMedia();
+
+  // Usage:
+  focusableElements = selectFocusableElementsExcept("#contact_modal");
 };
-document.addEventListener("DOMContentLoaded", init);
+init();
 
 const lightboxCloseBtn = document.querySelector(".close-lightbox_btn");
 const lightbox = document.querySelector(".lightbox-modal");

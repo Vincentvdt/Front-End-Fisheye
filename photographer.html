@@ -95,7 +95,9 @@
       <div aria-hidden="true" aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
         <header>
           <h2 id="modalTitle">Contactez-moi</h2>
-          <img alt="modal" aria-label="Close Contact form" onclick="closeModal()" src="assets/icons/close.svg"/>
+          <button aria-label="Close Contact form" class="modal-close-btn" onclick="closeModal()" type="button">
+            <img alt="modal" onclick="closeModal()" src="assets/icons/close.svg"/>
+          </button>
         </header>
         <form class="modalForm"
               method="post"

@@ -1,9 +1,6 @@
 const modalBackground = document.getElementById("contact_modal");
 const modalForm = document.querySelector(".modalForm");
 const body = document.querySelector("body");
-const notModal = document.querySelectorAll(
-  "body > *:not(#contact_modal):not(script)"
-);
 const modalCloseBtn = document.querySelector(".contact_button");
 const openModalBtn = document.querySelector(".btn-contact");
 
@@ -12,25 +9,28 @@ const displayModal = () => {
     modalBackground.style.display = "block";
     body.classList.add("no-scroll");
     modalBackground.setAttribute("aria-hidden", "false");
+    modalBackground.setAttribute("tabindex", "0");
     modalCloseBtn.focus();
 
-    notModal.forEach(function (element) {
+    focusableElements.forEach(function (element) {
       // Traitez chaque élément ici
       element.setAttribute("aria-hidden", "true");
+      element.setAttribute("tabindex", "-1");
     });
   }
 };
 
-// TODO : Tabindex pour la navigation
 const closeModal = () => {
   if (modalBackground.style.display !== "none") {
     modalBackground.style.display = "none";
     body.classList.remove("no-scroll");
     modalBackground.setAttribute("aria-hidden", "true");
+    modalBackground.setAttribute("tabindex", "-1");
 
-    notModal.forEach(function (element) {
+    focusableElements.forEach(function (element) {
       // Traitez chaque élément ici
       element.setAttribute("aria-hidden", "false");
+      element.removeAttribute("tabindex");
     });
   }
   openModalBtn.focus();
