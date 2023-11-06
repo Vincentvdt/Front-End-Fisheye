@@ -119,7 +119,6 @@ const photographePage = () => {
     for (const [index, media] of Object.entries(medias)) {
       const galleryModel = galleryCardTemplate(media);
       const cardDOM = await galleryModel.getGalleryCardDOM();
-      console.log(media.title, index);
       cardDOM.dataset.index = String(index);
       cardDOM.querySelector(".likeBtn").addEventListener("click", async (e) => {
         e.stopPropagation();
@@ -135,6 +134,7 @@ const photographePage = () => {
           post.likes++;
           cardDOM.classList.add("liked");
         }
+
         cardDOM.querySelector(".gallery-card__likes p").textContent =
           post.likes;
         const aside = main.querySelector(".tarif");
@@ -224,7 +224,6 @@ const photographePage = () => {
     cards.forEach((card) => {
       card.addEventListener("click", (e) => {
         index = card.dataset.index;
-        console.log(index);
         e.preventDefault();
         openLightbox(index);
       });
@@ -252,3 +251,17 @@ let medias = [];
 photographe.init(id).then((_medias) => {
   medias = _medias;
 });
+
+// TODO :
+//  - Fix la taille de l'image
+//  - Pas de redirection envoie form
+//  - Navigation avec les fleches
+//  - Style filtre
+//  - Responsive
+//  - cards photographe description non clickable
+//  - config Linter
+//  - ARIA
+//  - No Typescript
+//  - try export
+//  - Commenter code
+//  -
