@@ -1,6 +1,5 @@
 const galleryCardTemplate = (card) => {
-  const { id, photographerId, title, image, video, likes, date, price, index } =
-    card;
+  const { id, title, image, video, likes, index } = card;
   const resWidth = "350";
   const resHeight = "300";
 
@@ -17,7 +16,7 @@ const galleryCardTemplate = (card) => {
                </video>`;
   }
 
-  const getGalleryCardDOM = async () => {
+  const getGalleryCardDOM = async (parseStr = false) => {
     const cardHTML = `
     <article id="${id}" class="gallery-card" data-index="${index}">
       <a href="#" class="gallery-card__media">
@@ -35,6 +34,9 @@ const galleryCardTemplate = (card) => {
     </article>
   `;
 
+    if (parseStr) {
+      return cardHTML;
+    }
     const parser = new DOMParser();
     const doc = parser.parseFromString(cardHTML, "text/html");
     return doc.body.firstChild;
