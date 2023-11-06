@@ -121,7 +121,8 @@ const photographePage = () => {
       const cardDOM = await galleryModel.getGalleryCardDOM();
       console.log(media.title, index);
       cardDOM.dataset.index = String(index);
-      cardDOM.querySelector(".likeBtn").addEventListener("click", async () => {
+      cardDOM.querySelector(".likeBtn").addEventListener("click", async (e) => {
+        e.stopPropagation();
         const cardID = galleryModel.id;
         const post = medias.find((post) => post.id === cardID);
 
