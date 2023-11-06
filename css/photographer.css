@@ -518,5 +518,16 @@ section {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+}
 
+#mediasFilter {
+    min-width: 170px;
+    max-height: 69px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #901C1C;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 23px 20px;
 }
