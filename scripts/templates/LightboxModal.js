@@ -26,6 +26,7 @@ const lightboxModalTemplate = () => {
           </a>
           <div class="carousel-content">
             <div class="carousel-gallery">
+
             </div>
             <h2 class="carousel-img_title" id="lightboxTitle">Title</h2>
           </div>

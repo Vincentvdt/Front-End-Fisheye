@@ -169,7 +169,7 @@ body.no-scroll {
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     justify-items: center;
-    margin: 0 100px;
+    margin-top: 58px;
 }
 
 
@@ -493,10 +493,30 @@ form textarea {
     width: 100%;
 }
 
+section {
+    margin: 20px 100px 0;
+}
+
 .carousel-img_title {
     color: #901C1C;
     font-size: 24px;
     font-weight: 400;
     margin: 0;
+
+}
+
+.filtersBtn {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.filtersBtn label {
+    color: #000;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 
 }
