@@ -23,6 +23,8 @@ const photographePage = () => {
   let index = 0;
 
   let contact;
+  let lightbox;
+  let cards = [];
 
   const displayPhotographerPage = async (id) => {
     const photographerServices = await photographerService();
@@ -54,6 +56,7 @@ const photographePage = () => {
     appendBody(contactModalDOM);
     appendBody(lightboxModalDOM);
     contact = _contact();
+    lightbox = _lightbox(medias);
     initEventListeners();
   };
 
@@ -120,6 +123,7 @@ const photographePage = () => {
     return parseDOM(htmlString);
   };
   const photographerGallery = async () => {
+    cards = [];
     const gallery = document.querySelector(".gallery");
     for (const [index, media] of Object.entries(medias)) {
       const galleryModel = galleryCardTemplate(media);
@@ -146,8 +150,15 @@ const photographePage = () => {
         aside.querySelector(".totalLikes p").textContent = getTotalLikes();
       });
       gallery.appendChild(cardDOM);
+      cards.push(cardDOM);
     }
 
+    cards.forEach(card => {
+      card.addEventListener("click", (e) => {
+        e.preventDefault();
+        lightbox.open(card.dataset.index);
+      });
+    });
   };
 
   const initEventListeners = () => {
@@ -155,16 +166,19 @@ const photographePage = () => {
     const closeContactModalBtn = document.querySelector(
       "#contact_modal .modal-close-btn"
     );
+    const closeLightboxModalBtn = document.querySelector(".close-lightbox_btn");
 
     filter = document.querySelector("#mediasFilter");
     filter.addEventListener("change", () => void sortGallery());
 
     openContactModalBtn.addEventListener("click", contact.open);
     closeContactModalBtn.addEventListener("click", contact.close);
+    closeLightboxModalBtn.addEventListener("click", lightbox.close);
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         contact.close();
+        lightbox.close();
       }
     });
 
@@ -184,10 +198,12 @@ const photographePage = () => {
       default:
         return 0;
       }
+
     });
 
     gallery.innerHTML = "";
     await photographerGallery();
+
   };
 
   const contactModal = () => {
@@ -208,14 +224,11 @@ const photographePage = () => {
   return {init};
 };
 const photographe = photographePage();
-let medias = [];
-photographe.init(id).then((_medias) => {
-  medias = _medias;
-});
+
+photographe.init(id);
 
 // TODO :
 //  - Fix la taille de l'image
-//  - Pas de redirection envoie form
 //  - Navigation avec les fleches
 //  - Style filtre
 //  - Responsive

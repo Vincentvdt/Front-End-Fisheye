@@ -17,7 +17,7 @@ const _contact = () => {
     close();
   });
 
-  return {close, open};
+  return {close, open,};
 
 };
 
