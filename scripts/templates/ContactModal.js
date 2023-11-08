@@ -1,5 +1,5 @@
 const contactModalTemplate = () => {
-  const getContactModalDOM = async (parseStr = false) => {
+  const getContactModalDOM = async () => {
     const cardHTML = `
        <div aria-hidden="true" id="contact_modal">
             <div aria-hidden="true" aria-labelledby="modalTitle" aria-modal="true" class="modal" role="dialog">
@@ -51,5 +51,5 @@ const contactModalTemplate = () => {
     return doc.body.firstChild;
   };
 
-  return { getContactModalDOM };
+  return {getContactModalDOM};
 };

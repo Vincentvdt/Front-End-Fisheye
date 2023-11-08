@@ -22,6 +22,8 @@ const photographePage = () => {
   let filter = null;
   let index = 0;
 
+  let contact;
+
   const displayPhotographerPage = async (id) => {
     const photographerServices = await photographerService();
     photographer = await photographerServices.getPhotographerByID(id);
@@ -41,16 +43,17 @@ const photographePage = () => {
     const photographerHeader = photographeHeader();
     const photographerPortfolio = await photographePortfolio();
     const aside = asideInfos();
-    const contact = await contactModal();
-    const lightbox = await lightboxModal();
+    const contactModalDOM = await contactModal();
+
+    const lightboxModalDOM = await lightboxModal();
 
     main.appendChild(photographerHeader);
     main.appendChild(photographerPortfolio);
     await photographerGallery();
     main.appendChild(aside);
-    appendBody(contact);
-    appendBody(lightbox);
-
+    appendBody(contactModalDOM);
+    appendBody(lightboxModalDOM);
+    contact = _contact();
     initEventListeners();
   };
 
@@ -108,7 +111,9 @@ const photographePage = () => {
             <option value="title">Titre</option>
           </select>
         </div>
-        <div class="gallery"></div>
+        <div class="gallery">
+        
+        </div>
       </section>
     `;
 
@@ -143,61 +148,26 @@ const photographePage = () => {
       gallery.appendChild(cardDOM);
     }
 
-    const cards = gallery.querySelectorAll(".gallery-card");
-    cardsEvent(cards);
   };
 
   const initEventListeners = () => {
-    const lightboxPrevBtn = document.querySelector(
-      ".carousel-arrow.arrow-prev"
-    );
-    const lightboxNextBtn = document.querySelector(
-      ".carousel-arrow.arrow-next"
-    );
-
-    filter = document.querySelector("#mediasFilter");
-    filter.addEventListener("change", () => void sortGallery());
     const openContactModalBtn = document.querySelector(".btn-contact");
     const closeContactModalBtn = document.querySelector(
       "#contact_modal .modal-close-btn"
     );
-    openContactModalBtn.addEventListener("click", openContact);
-    closeContactModalBtn.addEventListener("click", closeContact);
 
-    const openLightboxModalBtn = document.querySelector(
-      ".photograph-header__name"
-    );
-    const closeLightboxModalBtn = document.querySelector(
-      ".lightbox-modal .close-lightbox_btn"
-    );
-    openLightboxModalBtn.addEventListener("click", openLightbox);
-    closeLightboxModalBtn.addEventListener("click", closeLightbox);
+    filter = document.querySelector("#mediasFilter");
+    filter.addEventListener("change", () => void sortGallery());
+
+    openContactModalBtn.addEventListener("click", contact.open);
+    closeContactModalBtn.addEventListener("click", contact.close);
 
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
-        closeContact();
-        closeLightbox();
+        contact.close();
       }
     });
 
-    lightboxPrevBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (index === 0) {
-        index = medias.length - 1;
-      } else {
-        index--;
-      }
-      displayImage(index);
-    });
-    lightboxNextBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (index === medias.length - 1) {
-        index = 0;
-      } else {
-        index++;
-      }
-      displayImage(index);
-    });
   };
 
   const sortGallery = async () => {
@@ -220,15 +190,6 @@ const photographePage = () => {
     await photographerGallery();
   };
 
-  const cardsEvent = (cards) => {
-    cards.forEach((card) => {
-      card.addEventListener("click", (e) => {
-        index = card.dataset.index;
-        e.preventDefault();
-        openLightbox(index);
-      });
-    });
-  };
   const contactModal = () => {
     const template = contactModalTemplate();
     return template.getContactModalDOM();
@@ -244,7 +205,7 @@ const photographePage = () => {
     return medias;
   };
 
-  return { init };
+  return {init};
 };
 const photographe = photographePage();
 let medias = [];

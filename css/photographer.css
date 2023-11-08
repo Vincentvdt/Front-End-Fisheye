@@ -272,7 +272,7 @@ body.no-scroll {
     align-items: center;
     justify-content: space-between;
     padding: 35px;
-    margin: 2% auto;
+    margin: auto;
 }
 
 .modal header {
@@ -384,127 +384,6 @@ form textarea {
 
 }
 
-.lightbox-modal {
-    width: 100%;
-    height: 100vh;
-    display: none;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    overflow: auto;
-    background-color: rgba(255, 255, 255, .3);
-}
-
-
-.lightbox {
-    width: 1242px;
-    height: 800px;
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 2% auto;
-    padding: 25px;
-    background-color: white;
-    border-radius: 5px;
-    border: 1px solid #d3d3d3;
-}
-
-.close-lightbox_btn {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    width: 72px;
-    height: 72px;
-    flex-shrink: 0;
-    background: none;
-    border: none;
-    margin: 0;
-    cursor: pointer;
-    transition: transform 250ms;
-
-}
-
-.close-lightbox_btn:hover, .close-lightbox_btn:focus {
-    transform: scale(1.1);
-}
-
-.close-lightbox_btn svg {
-    width: 100%;
-    height: 100%;
-}
-
-.lightbox-carousel {
-    display: flex;
-    height: 100%;
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-
-}
-
-
-.carousel-arrow {
-    width: 96px;
-    height: 96px;
-    flex-shrink: 0;
-    margin: 0;
-    cursor: pointer;
-    transition: transform 250ms;
-}
-
-.carousel-arrow:hover, .carousel-arrow:focus {
-    transform: scale(1.1);
-}
-
-.carousel-arrow svg {
-    width: 100%;
-    height: 100%;
-}
-
-.carousel-content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-    height: 100%;
-    align-items: flex-start;
-
-}
-
-
-.carousel-gallery {
-    width: 1050px;
-    height: 900px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
-}
-
-.carousel-item {
-    object-fit: contain;
-    width: 100%;
-}
-
-section {
-    margin: 20px 100px 0;
-}
-
-.carousel-img_title {
-    color: #901C1C;
-    font-size: 24px;
-    font-weight: 400;
-    margin: 0;
-
-}
 
 .filtersBtn {
     display: flex;
@@ -531,4 +410,108 @@ section {
     font-size: 18px;
     font-weight: 700;
     padding: 23px 20px;
+}
+
+.lightbox-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: rgba(255, 255, 255, 0.4);
+    overflow: auto;
+}
+
+.lightbox {
+    position: relative;
+    background-color: white;
+    border: .5px solid rgb(128, 128, 128);
+    margin: auto;
+    padding: 20px 0 15px;
+    border-radius: 5px;
+}
+
+
+.close-lightbox_btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    right: 0;
+    width: 72px;
+    height: 72px;
+    flex-shrink: 0;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer
+}
+
+.close-lightbox_btn svg {
+    width: 100%;
+    height: 100%;
+}
+
+.lightbox-carousel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.carousel-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 96px;
+    height: 96px;
+    flex-shrink: 0;
+    padding: 0;
+    cursor: pointer
+}
+
+.carousel-arrow svg {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.carousel-gallery {
+    width: 1050px;
+    height: 900px;
+    flex-shrink: 0;
+}
+
+@media screen and (max-width: 1440px) {
+    .carousel-gallery {
+        width: calc(1050px * 0.5);
+        height: calc(900px * 0.5);
+        flex-shrink: 0;
+    }
+
+}
+
+.carousel-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-img_title {
+    color: #901C1C;
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0;
+    align-self: stretch;
+    text-align: left;
 }
