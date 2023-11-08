@@ -205,14 +205,14 @@ const photographePage = () => {
     const sortType = filter.value;
     medias.sort((a, b) => {
       switch (sortType) {
-        case "date":
-          return new Date(a.date) - new Date(b.date);
-        case "popularity":
-          return b.likes - a.likes;
-        case "title":
-          return a.title.localeCompare(b.title);
-        default:
-          return 0;
+      case "date":
+        return new Date(a.date) - new Date(b.date);
+      case "popularity":
+        return b.likes - a.likes;
+      case "title":
+        return a.title.localeCompare(b.title);
+      default:
+        return 0;
       }
     });
 

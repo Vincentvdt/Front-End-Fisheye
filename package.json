@@ -1,13 +1,19 @@
 {
+  "name": "front-end-fisheye",
+  "version": "1.0.0",
+  "description": "Rien à installer ici, il suffit d'ouvrir le fichier `index.html`.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint":"eslint scripts *.js"
+  },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "eslint": "^8.52.0",
+    "eslint": "^8.53.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.0",
-    "eslint-plugin-n": "^16.2.0",
+    "eslint-plugin-n": "^16.3.0",
     "eslint-plugin-promise": "^6.1.1"
-  },
-  "scripts": {
-    "dev": "http-server",
-    "lint": "eslint *"
   }
 }
