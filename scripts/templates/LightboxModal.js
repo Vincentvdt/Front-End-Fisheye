@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const lightboxModalTemplate = () => {
   const getLightboxModalDOM = async () => {
     const cardHTML = `
@@ -8,7 +9,7 @@ const lightboxModalTemplate = () => {
               <path
                   d="M57 19.23L52.77 15L36 31.77L19.23 15L15 19.23L31.77 36L15 52.77L19.23 57L36 40.23L52.77 57L57 52.77L40.23 36L57 19.23Z"
                   fill="#911C1C"/>
-            </svg>
+            </svg> 
           </button>
           <div class="lightbox-carousel">
             <a aria-label="Previous image" class="carousel-arrow arrow-prev" href="" role="button">
@@ -16,7 +17,7 @@ const lightboxModalTemplate = () => {
                 <g clip-path="url(#clip0_120_800)">
                   <path d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
                         fill="#911C1C"/>
-                </g>
+                </g> 
                 <defs>
                   <clipPath id="clip0_120_800">
                     <rect fill="white" height="96" transform="translate(96) rotate(90)" width="96"/>

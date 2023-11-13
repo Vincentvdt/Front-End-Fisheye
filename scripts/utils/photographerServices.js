@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const photographerService = async () => {
   const res = await fetch("../../data/photographers.json");
   const data = await res.json();
@@ -10,7 +11,7 @@ const photographerService = async () => {
   };
 
   const getPhotographerByID = async (id) => {
-    const { photographers } = data;
+    const {photographers} = data;
     if (!photographer) {
       photographer = photographers.find(
         (photograph) => photograph.id === parseInt(id)
@@ -22,7 +23,7 @@ const photographerService = async () => {
   const getMedias = async (id) => {
     if (!medias) {
       medias = data.media.filter(
-        ({ photographerId }) => photographerId === parseInt(id)
+        ({photographerId}) => photographerId === parseInt(id)
       );
     }
     return medias;
@@ -32,5 +33,5 @@ const photographerService = async () => {
     return medias.find((media) => media.id === parseInt(id));
   };
 
-  return { getAllPhotographers, getPhotographerByID, getMedias, getPostByID };
+  return {getAllPhotographers, getPhotographerByID, getMedias, getPostByID};
 };

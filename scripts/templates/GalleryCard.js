@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 const galleryCardTemplate = (card) => {
-  const { id, title, image, video, likes, index } = card;
+  const {id, title, image, video, likes, index} = card;
   const resWidth = "350";
   const resHeight = "300";
 
@@ -25,7 +26,7 @@ const galleryCardTemplate = (card) => {
       <div class="gallery-card__description">
         <h3 class="gallery-card__title">${title}</h3>
         <div class="gallery-card__likes">
-          <p>${likes}</p>
+          <p aria-label=”likes”>${likes}</p>
           <svg class="likeBtn" fill="none" height="19" viewBox="0 0 19 19" width="19" xmlns="http://www.w3.org/2000/svg" >
             <path d="M9.5 18.85L8.23125 17.53C3.725 12.86 0.75 9.78 0.75 6C0.75 2.92 2.8675 0.5 5.5625 0.5C7.085 0.5 8.54625 1.31 9.5 2.59C10.4538 1.31 11.915 0.5 13.4375 0.5C16.1325 0.5 18.25 2.92 18.25 6C18.25 9.78 15.275 12.86 10.7687 17.54L9.5 18.85Z"/>
           </svg>
@@ -33,7 +34,6 @@ const galleryCardTemplate = (card) => {
       </div>
     </article>
   `;
-
     if (parseStr) {
       return cardHTML;
     }
@@ -42,5 +42,5 @@ const galleryCardTemplate = (card) => {
     return doc.body.firstChild;
   };
 
-  return { id, getGalleryCardDOM };
+  return {id, getGalleryCardDOM};
 };

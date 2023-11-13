@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const contactModalTemplate = () => {
   const getContactModalDOM = async () => {
     const cardHTML = `
@@ -6,7 +7,7 @@ const contactModalTemplate = () => {
               <header>
                 <h2 id="modalTitle">Contactez-moi</h2>
                 <button aria-label="Close Contact form" class="modal-close-btn" type="button">
-                  <img alt="modal" src="assets/icons/close.svg"/>
+                  <img alt="modal" src="../../assets/icons/close.svg"/>
                 </button>
               </header>
               <form class="modalForm"

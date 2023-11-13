@@ -9,10 +9,19 @@ body.no-scroll {
     overflow: hidden
 }
 
+section {
+    margin: 0 100px;
+}
+
+@media screen and (max-width: 1440px) {
+    section {
+        margin: 0 50px;
+    }
+}
+
 .photograph-header {
     display: flex;
     padding: 55px 50px;
-    margin: 0 100px;
     justify-content: space-between;
     align-items: center;
     border-radius: 5px;
@@ -162,6 +171,104 @@ body.no-scroll {
     object-fit: cover;
 }
 
+.filters-wrapper {
+    margin-top: 10px;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    z-index: 9999;
+}
+
+.filter-label {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.filter-selected {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    gap: 18px;
+    padding: 19px;
+    border-radius: 5px;
+    background: #901C1C;
+    cursor: pointer;
+    min-width: 170px;
+}
+
+.filter-selected.open {
+    border-radius: 5px 5px 0 0;
+}
+
+.filter-selected.open .filter-options {
+    display: block;
+}
+
+.filter-options {
+    display: none;
+    list-style: none;
+    transform: translateY(100%);
+    position: absolute;
+    width: 100%;
+    bottom: 1px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+    background: #901C1C;
+    z-index: 9999;
+}
+
+.filter-options .filter-item:before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 90%;
+    border-top: .5px solid white;
+    margin: 0;
+    transform: translateX(-50%);
+    top: 0;
+    left: 50%;
+}
+
+
+.filter-item {
+    position: relative;
+    padding: 14px 10px;
+    align-self: stretch;
+    background: #901C1C;
+}
+
+.filter-item:hover, .filter-item:focus {
+    background: #670f0f;
+    outline: none;
+}
+
+.filter-selected p, .filter-item {
+    margin: 0;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+.filter-selected svg {
+    transition: transform 150ms ease-in-out;
+}
+
+.filter-selected.open svg {
+    transform: rotate(180deg);
+}
+
+.filter-selected svg path {
+    fill: white;
+}
+
 
 .gallery {
     display: grid;
@@ -173,6 +280,14 @@ body.no-scroll {
     margin-bottom: 50px;
 }
 
+@media screen and (max-width: 1440px) {
+
+    .gallery {
+        grid-template-columns: repeat(3, auto) !important;
+    }
+
+}
+
 
 .gallery-card {
     display: flex;
@@ -182,6 +297,11 @@ body.no-scroll {
     align-items: center;
     gap: 10px;
     font-family: DM Sans, sans-serif;
+
+}
+
+.gallery-card:hover .gallery-card__media, .gallery-card:hover .gallery-card__media:focus {
+    border: 1px solid rgba(128, 128, 128, 0.6);
 }
 
 .gallery-card__media {
@@ -193,6 +313,7 @@ body.no-scroll {
     border-radius: 5px;
     background: #D9D9D9;
     overflow: hidden;
+    transition: 150ms ease-in-out;
 }
 
 .gallery-card__media img, .gallery-card__media video {
@@ -381,35 +502,6 @@ form textarea {
 .modal-close-btn {
     border: none;
     background: none;
-
-}
-
-
-.filtersBtn {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.filtersBtn label {
-    color: #000;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
-
-#mediasFilter {
-    min-width: 170px;
-    max-height: 69px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    background: #901C1C;
-    color: #FFF;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 23px 20px;
 }
 
 .lightbox-modal {

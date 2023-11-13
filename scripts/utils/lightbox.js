@@ -11,7 +11,7 @@ const _lightbox = (_medias) => {
     } else {
       index++;
     }
-    await displayImage(index);
+    await displayImage();
   };
 
   const previousImage = async (e) => {
@@ -21,7 +21,7 @@ const _lightbox = (_medias) => {
     } else {
       index--;
     }
-    await displayImage(index);
+    await displayImage();
   };
 
   const open = (_index) => {
@@ -58,6 +58,7 @@ const _lightbox = (_medias) => {
       videoElem.className = "carousel-item";
       videoElem.src = `assets/medias/${currentMedia.video}`;
       videoElem.controls = true;
+      videoElem.setAttribute("aria-label", currentMedia.title);
       elem = videoElem;
     }
 

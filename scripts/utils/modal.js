@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 const _modal = modal => {
   const body = document.querySelector("body");
 

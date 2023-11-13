@@ -33,17 +33,41 @@ h1 {
 
 .profile-card {
     display: flex;
-    justify-content: center;
-    align-self: stretch;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: center;
+    gap: 0;
+    padding: 10px 0;
+    margin-bottom: 50px;
+    transition: all 0.3s ease-out;
+    border-radius: 5px;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px) scale(1.001) translateZ(0);
+    box-shadow: 0 24px 36px rgba(0, 0, 0, 0.11),
+    0 24px 46px rgba(128, 128, 128, 0.38);
+}
+
+.profile-card__header {
+    display: flex;
+}
+
+.profile-card__header h2 {
+    color: #D3573C;
+    text-align: center;
+    font-family: DM Sans, sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+    margin: 0;
 }
 
 .profile-card a {
     display: flex;
-
-    padding: 10px 0;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-self: stretch;
     gap: 20px;
     text-decoration: none;
 }
@@ -73,15 +97,6 @@ h1 {
     flex-direction: column;
     align-items: center;
     align-self: stretch;
-}
-
-.profile-card__details h2 {
-    color: #D3573C;
-    text-align: center;
-    font-family: DM Sans, sans-serif;
-    font-size: 34px;
-    font-weight: 400;
-    margin: 0;
 }
 
 .profile-card__info {

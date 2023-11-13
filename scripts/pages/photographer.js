@@ -18,49 +18,94 @@ const photographePage = () => {
   let photographer = null;
   let medias = [];
   let totalLikes = 0;
+  let visibleOptions = [];
 
-  let filter = null;
-  let index = 0;
+  let filter = "popularity";
+  const frTradMap = {
+    popularity: "Popularité",
+    date: "Date",
+    title: "Titre",
+  };
 
   let contact;
   let lightbox;
   let cards = [];
 
-  const displayPhotographerPage = async (id) => {
+  const fetchPhotographerData = async id => {
+    // eslint-disable-next-line no-undef
     const photographerServices = await photographerService();
     photographer = await photographerServices.getPhotographerByID(id);
     medias = await photographerServices.getMedias(id);
     medias.sort((a, b) => b.likes - a.likes);
-
-    await render();
   };
-
-  const getTotalLikes = () => {
-    totalLikes = medias.reduce((a, b) => a + b.likes, 0);
-    return totalLikes;
-  };
-
-  const render = async () => {
+  const renderPhotographerPage = async () => {
     main.innerHTML = "";
-    const photographerHeader = photographeHeader();
-    const photographerPortfolio = await photographePortfolio();
-    const aside = asideInfos();
-    const contactModalDOM = await contactModal();
-
-    const lightboxModalDOM = await lightboxModal();
+    const photographerHeader = createPhotographerHeader();
+    const photographerPortfolio = await createPhotographerPortfolio();
+    const aside = createAsideInfos();
+    const contactModalDOM = await createContactModal();
+    const lightboxModalDOM = await createLightboxModal();
 
     main.appendChild(photographerHeader);
     main.appendChild(photographerPortfolio);
-    await photographerGallery();
+    await createPhotographerGallery();
     main.appendChild(aside);
     appendBody(contactModalDOM);
     appendBody(lightboxModalDOM);
+    // eslint-disable-next-line no-undef
     contact = _contact();
+    // eslint-disable-next-line no-undef
     lightbox = _lightbox(medias);
     initEventListeners();
   };
+  const createPhotographerHeader = () => {
+    const picture = `assets/photographers/${photographer.portrait}`;
+    const htmlString = `
+    <section class="photograph-header">
+        <div class="photograph-header__content">
+          <div class="photograph-header__infos">
+            <h1 class="photograph-header__name">${photographer.name}</h1>
+            <p class="photograph-header__location">${photographer.city}, ${photographer.country}</p>
+            <p class="photograph-header__tagline"><${photographer.tagline}</p>
+          </div>
+          <button class="btn-contact" aria-label="Contact Me">Contactez-moi</button>
+        </div>
+        <div class="photograph-header__profile">
+          <div class="photograph-header__profile-wrapper">
+            <img alt="${photographer.name}" src="${picture}">
+          </div>
+        </div>
+      </section>`;
 
-  const asideInfos = () => {
+    return parseDOM(htmlString);
+  };
+  const createPhotographerPortfolio = async () => {
+
+    const htmlString = `
+      <section class="portfolio">
+        <div class="filters-wrapper" >
+          <p class="filter-label">Trier par :</p>
+            <div class="filter-selected" id="selectedInput" data-selected="${filter}" tabindex="0" role="button" aria-haspopup=”listbox”>
+              <p>${frTradMap[filter] || filter}</p>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
+                  <path d="M22.12 11.4531L16 17.5598L9.88 11.4531L8 13.3331L16 21.3331L24 13.3331L22.12 11.4531Z" fill="red"/>
+              </svg>
+              <ul class="filter-options" role=”listbox” aria-labelledby="selectedInput">
+                <li class="filter-item" data-value="popularity" tabindex="1">Popularité</li>
+                <li class="filter-item" data-value="date" tabindex="1">Date</li>
+                <li class="filter-item" data-value="title" tabindex="1">Titre</li>
+              </ul>
+            </div>
+        </div>
+        <div class="gallery">
+        
+        </div>
+      </section>
+    `;
+
+    return parseDOM(htmlString);
+  };
+  const createAsideInfos = () => {
     getTotalLikes();
     const htmlString = `
     <aside aria-hidden="false" class="tarif">
@@ -80,52 +125,11 @@ const photographePage = () => {
 
     return parseDOM(htmlString);
   };
-
-  const photographeHeader = () => {
-    const picture = `assets/photographers/${photographer.portrait}`;
-    const htmlString = `
-    <section class="photograph-header">
-        <div class="photograph-header__content">
-          <div class="photograph-header__infos">
-            <h1 class="photograph-header__name">${photographer.name}</h1>
-            <p class="photograph-header__location">${photographer.city}, ${photographer.country}</p>
-            <p class="photograph-header__tagline"><${photographer.tagline}</p>
-          </div>
-          <button class="btn-contact">Contactez-moi</button>
-        </div>
-        <div class="photograph-header__profile">
-          <div class="photograph-header__profile-wrapper">
-            <img alt="${photographer.name}" src="${picture}">
-          </div>
-        </div>
-      </section>`;
-
-    return parseDOM(htmlString);
-  };
-
-  const photographePortfolio = async () => {
-    const htmlString = `
-      <section class="portfolio">
-        <div class="filtersBtn" >
-          <label for="mediasFilter">Trier par :</label>
-          <select id="mediasFilter" name="medias">
-            <option selected="selected" value="popularity">Popularité</option>
-            <option value="date">Date</option>
-            <option value="title">Titre</option>
-          </select>
-        </div>
-        <div class="gallery">
-        
-        </div>
-      </section>
-    `;
-
-    return parseDOM(htmlString);
-  };
-  const photographerGallery = async () => {
+  const createPhotographerGallery = async () => {
     cards = [];
     const gallery = document.querySelector(".gallery");
     for (const [index, media] of Object.entries(medias)) {
+      // eslint-disable-next-line no-undef
       const galleryModel = galleryCardTemplate(media);
       const cardDOM = await galleryModel.getGalleryCardDOM();
       cardDOM.dataset.index = String(index);
@@ -160,6 +164,115 @@ const photographePage = () => {
       });
     });
   };
+  const createContactModal = () => {
+    // eslint-disable-next-line no-undef
+    const template = contactModalTemplate();
+    return template.getContactModalDOM();
+  };
+  const createLightboxModal = () => {
+    // eslint-disable-next-line no-undef
+    const template = lightboxModalTemplate();
+    return template.getLightboxModalDOM();
+  };
+  const getTotalLikes = () => {
+    totalLikes = medias.reduce((a, b) => a + b.likes, 0);
+    return totalLikes;
+  };
+
+  const selectNavigationHandler = () => {
+    const filterBtn = document.querySelector(".filter-selected");
+    const filtersOptions = filterBtn.querySelectorAll(".filter-item");
+    const handleEscapeKey = () => {
+      contact.close();
+      lightbox.close();
+      closeSelect();
+    };
+
+    const handleEnterKey = () => {
+      const focusedElement = document.activeElement;
+      if (focusedElement.classList.contains("filter-selected") && !filterBtn.classList.contains("open")) {
+        toggleSelect();
+      } else if (focusedElement.classList.contains("filter-item") && filterBtn.classList.contains("open")) {
+        selectOption(focusedElement);
+      }
+    };
+
+    const handleTabKey = () => {
+      if (filterBtn.classList.contains("open")) {
+        let activeElementIndex = visibleOptions.indexOf(document.activeElement);
+
+        if (activeElementIndex + 1 >= visibleOptions.length) {
+          activeElementIndex = 0;
+        } else {
+          activeElementIndex++;
+        }
+
+        // Use setTimeout to ensure focus takes effect
+        setTimeout(() => {
+          visibleOptions[activeElementIndex].focus();
+        }, 0);
+      }
+    };
+
+    const toggleOptions = () => {
+      const selected = Array.from(filtersOptions).find(option => option.dataset.value === filter);
+      filtersOptions.forEach(option => {
+        option.style.display = option === selected ? "none" : "block";
+        option === selected ? option.setAttribute("aria-selected", "") : option.removeAttribute("aria-selected");
+      });
+      visibleOptions = Array.from(filtersOptions).filter(option => option !== selected);
+    };
+    const toggleSelect = () => {
+      if (filterBtn.classList.contains("open")) {
+        // Close select
+        closeSelect();
+        toggleOptions();
+        filterBtn.focus();
+      } else {
+        // Open Select
+        openSelect();
+      }
+    };
+    const selectOption = (option) => {
+      filter = option.dataset.value;
+      sortGallery().then(() => {
+        document.querySelector(".filter-selected p").textContent = frTradMap[filter] || filter;
+        toggleSelect();
+      });
+    };
+
+    const openSelect = () => {
+      filterBtn.removeAttribute("tabindex");
+      filterBtn.setAttribute("aria-expanded", "");
+      filtersOptions.forEach(option => {
+        option.setAttribute("tabindex", "1");
+        option.setAttribute("aria-hidden", "false");
+      });
+      filterBtn.classList.add("open");
+      visibleOptions[0].focus();
+    };
+    const closeSelect = () => {
+      filterBtn.setAttribute("tabindex", "0");
+      filterBtn.removeAttribute("aria-expanded");
+      filtersOptions.forEach(option => {
+        option.removeAttribute("tabindex");
+        option.setAttribute("aria-hidden", "true");
+      });
+      filterBtn.classList.remove("open");
+    };
+
+    toggleOptions();
+
+    filterBtn.addEventListener("click", toggleSelect);
+
+    filtersOptions.forEach((option) => {
+      option.addEventListener("click", (e) => {
+        e.stopPropagation();
+        selectOption(option);
+      });
+    });
+    return {handleEscapeKey, handleEnterKey, handleTabKey};
+  };
 
   const initEventListeners = () => {
     const openContactModalBtn = document.querySelector(".btn-contact");
@@ -168,25 +281,28 @@ const photographePage = () => {
     );
     const closeLightboxModalBtn = document.querySelector(".close-lightbox_btn");
 
-    filter = document.querySelector("#mediasFilter");
-    filter.addEventListener("change", () => void sortGallery());
+    const {handleEscapeKey, handleEnterKey, handleTabKey} = selectNavigationHandler();
+
+    const eventHandlers = {
+      "Escape": handleEscapeKey,
+      "Enter": handleEnterKey,
+      "Tab": handleTabKey
+    };
 
     openContactModalBtn.addEventListener("click", contact.open);
     closeContactModalBtn.addEventListener("click", contact.close);
     closeLightboxModalBtn.addEventListener("click", lightbox.close);
-
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") {
-        contact.close();
-        lightbox.close();
+    document.addEventListener("keydown", e => {
+      const handler = eventHandlers[e.key];
+      if (handler) {
+        handler();
       }
     });
-
   };
 
   const sortGallery = async () => {
     const gallery = document.querySelector(".gallery");
-    const sortType = filter.value;
+    const sortType = filter;
     medias.sort((a, b) => {
       switch (sortType) {
       case "date":
@@ -198,26 +314,15 @@ const photographePage = () => {
       default:
         return 0;
       }
-
     });
 
     gallery.innerHTML = "";
-    await photographerGallery();
-
-  };
-
-  const contactModal = () => {
-    const template = contactModalTemplate();
-    return template.getContactModalDOM();
-  };
-
-  const lightboxModal = () => {
-    const template = lightboxModalTemplate();
-    return template.getLightboxModalDOM();
+    await createPhotographerGallery();
   };
 
   const init = async (id) => {
-    await displayPhotographerPage(id);
+    await fetchPhotographerData(id);
+    await renderPhotographerPage();
     return medias;
   };
 
@@ -225,17 +330,9 @@ const photographePage = () => {
 };
 const photographe = photographePage();
 
-photographe.init(id);
+photographe.init(id).then(() => "success");
 
 // TODO :
-//  - Fix la taille de l'image
-//  - Navigation avec les fleches
-//  - Style filtre
 //  - Responsive
-//  - cards photographe description non clickable
-//  - config Linter
-//  - ARIA
-//  - No Typescript
-//  - try export
-//  - Commenter code
-//  -
+
+
