@@ -1,5 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 const _lightbox = (_medias) => {
   const lightboxDOM = document.querySelector(".lightbox-modal");
+  // eslint-disable-next-line no-undef
   const modal = _modal(lightboxDOM);
   let index = 0;
   let medias = _medias;

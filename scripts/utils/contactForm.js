@@ -1,6 +1,8 @@
+// eslint-disable-next-line no-unused-vars
 const _contact = () => {
   const contactDOM = document.querySelector("#contact_modal");
   const form = contactDOM.querySelector(".modalForm");
+  // eslint-disable-next-line no-undef
   const modal = _modal(contactDOM);
   const open = () => {
     modal.show();
