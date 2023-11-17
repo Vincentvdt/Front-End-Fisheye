@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 const _modal = modal => {
   const body = document.querySelector("body");
+  const selectFilter = document.querySelector(".filter-selected");
 
   const getFocusableElements = () => {
     const focusableElementsString =
@@ -8,6 +9,8 @@ const _modal = modal => {
     return document.querySelectorAll(focusableElementsString);
   };
   const show = () => {
+
+    selectFilter.classList.remove("open");
     const focusableElements = getFocusableElements();
     modal.style.display = "flex";
     focusableElements.forEach((elem) => {

@@ -13,11 +13,6 @@ section {
     margin: 0 100px;
 }
 
-@media screen and (max-width: 1440px) {
-    section {
-        margin: 0 50px;
-    }
-}
 
 .photograph-header {
     display: flex;
@@ -116,7 +111,7 @@ section {
     transition: 200ms ease-in-out;
 }
 
-.contact_button {
+.btn-submit {
     border-radius: 5px;
     background: #901C1C;
     color: #FFF;
@@ -129,15 +124,16 @@ section {
     border: none;
     cursor: pointer;
     transition: 200ms ease-in-out;
+    align-self: start;
 }
 
 
-.contact_button:focus {
+.btn-submit:focus {
     outline: 1px solid white;
     transform: scale(0.95);
 }
 
-.contact_button:hover {
+.btn-submit:hover {
     background: #DB8876;
     color: #000;
     border: 1px solid white;
@@ -280,14 +276,6 @@ section {
     margin-bottom: 50px;
 }
 
-@media screen and (max-width: 1440px) {
-
-    .gallery {
-        grid-template-columns: repeat(3, auto) !important;
-    }
-
-}
-
 
 .gallery-card {
     display: flex;
@@ -308,12 +296,15 @@ section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 350px;
+    width: 100%;
     height: 300px;
     border-radius: 5px;
     background: #D9D9D9;
     overflow: hidden;
     transition: 150ms ease-in-out;
+    border: none;
+    background: none;
+    padding: 0;
 }
 
 .gallery-card__media img, .gallery-card__media video {
@@ -355,16 +346,22 @@ section {
 }
 
 .likeBtn {
-    fill: #525252;
     width: 21px;
     height: 24px;
     cursor: pointer;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
+    border: none;
+    background: none;
+    margin: 0;
+    padding: 0
 }
 
-.gallery-card.liked .likeBtn {
+.likeBtn svg {
+    fill: #525252;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-card.liked .likeBtn svg {
     fill: #901C1C;
 }
 
@@ -399,6 +396,8 @@ section {
 .modal header {
     justify-content: space-between;
     width: 100%;
+    height: unset;
+    align-items: flex-start;
 }
 
 .modal header img {
@@ -408,51 +407,12 @@ section {
 .modal header h2 {
     font-size: 64px;
     font-weight: normal;
-    text-align: center;
+    text-align: left;
+    margin: 0;
     color: #000;
 
 }
 
-form {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-form label {
-    color: #312E2E;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-form div {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-
-    margin-bottom: 26px;
-}
-
-form input, form textarea {
-    height: 68px;
-    border: none;
-    border-radius: 5px;
-    color: #312E2E;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    padding-left: 15px;
-}
-
-form textarea {
-    resize: none;
-    height: 170px;
-    padding: 15px 0 0 15px
-}
 
 .tarif {
     position: fixed;
@@ -606,4 +566,323 @@ form textarea {
     margin: 0;
     align-self: stretch;
     text-align: left;
+}
+
+.modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-self: stretch;
+}
+
+form textarea {
+    resize: none;
+    height: 170px;
+    padding: 15px 0 0 15px
+}
+
+.validation-error {
+    color: #B90013;
+    font-size: 16px;
+    visibility: hidden;
+    opacity: 0;
+    font-family: Roboto, serif;
+    font-weight: 400;
+    line-height: 142.6%;
+    padding: 0;
+    margin-top: 5px;
+    min-height: 14px;
+    white-space: pre-wrap;
+}
+
+.formInput {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.formInput.form-checkbox {
+    display: unset;
+}
+
+.formInput[data-error="true"] .text-control {
+    outline: 2px solid #e54858;
+}
+
+.formInput[data-error="false"] .text-control {
+    outline: 2px solid #43d043;
+}
+
+.formInput[data-error="true"] .checkbox-label .checkbox-icon {
+    border: 2px solid #e54858;
+}
+
+.formInput[data-error="false"] .checkbox-label .checkbox-icon {
+    border: none;
+    font-size: 26px;
+}
+
+.formInput[data-error="true"] .validation-error {
+    opacity: 1;
+    visibility: visible;
+}
+
+.formLabel {
+    font-size: 26px;
+    margin-bottom: 7px;
+    padding: 0;
+    color: #312E2E;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.input-required {
+    color: #FF4E60;
+}
+
+.formInput input[type="text"], .formInput input[type="email"] {
+    height: 55px;
+    flex-shrink: 0;
+    background: #FFF;
+    margin: 0;
+    font-family: DM Sans, sans-serif;
+    border: none;
+    border-radius: 5px;
+    color: #312E2E;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding-left: 15px;
+    align-self: stretch;
+
+}
+
+
+.modal.shake {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+}
+
+.successMessage {
+    color: #FFF;
+    text-align: center;
+    font-family: DM Sans, sans-serif;
+    font-size: 2.25rem;
+    font-weight: 400;
+    line-height: 142.6%;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+@media screen and (max-width: 1240px) {
+
+    .logo {
+        margin-left: unset !important;
+    }
+
+    header {
+        justify-content: center !important;
+
+    }
+
+    .photograph-header {
+        flex-direction: column-reverse;
+        align-items: center;
+        /*! justify-content: center; */
+        gap: 10px;
+    }
+
+    .photograph-header__content {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .photograph-header__infos {
+        align-items: center;
+        gap: 5px;
+        margin: 0;
+    }
+
+    .photograph-header__name {
+        text-align: center;
+        font-size: 44px;
+    }
+
+    .photograph-header__location {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    section {
+        margin: 20px 30px 50px 30px;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, auto) !important;
+        grid-column-gap: unset;
+    }
+
+
+}
+
+@media screen and (max-width: 1024px) {
+
+    .gallery-card {
+        width: 300px;
+        height: 290px;
+    }
+
+    .gallery-card__media {
+        height: 240px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    .modal-close-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .modal-close-btn > img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .modal {
+        width: 100%;
+        padding: 25px;
+    }
+
+    .modal header h2 {
+        font-size: 28px;
+    }
+
+    .modal header {
+        justify-content: space-between !important;
+        flex-direction: row !important;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(1, auto) !important;
+    }
+
+    .gallery-card {
+        width: 450px;
+        height: 440px;
+    }
+
+    .gallery-card__media {
+        height: 390px;
+    }
+
+    .tarif {
+        width: 100%;
+        left: 0;
+        border-radius: unset;
+        padding: 20px 0;
+    }
+
+    .carousel-arrow {
+        order: 2;
+    }
+
+
+    .lightbox {
+        padding: unset;
+
+    }
+
+    .carousel-content {
+        order: 1;
+        border-right: .5px solid rgb(128, 128, 128);
+        gap: unset;
+    }
+
+    #lightboxTitle {
+        padding: 12px;
+    }
+
+    .carousel-gallery {
+        width: calc(1050px * 0.3);
+        height: calc(900px * 0.3);
+        flex-shrink: 0;
+    }
+
+    .close-lightbox_btn {
+
+        top: unset;
+        width: 50px;
+        height: 50px
+    }
+
+    .carousel-arrow {
+
+        width: 72px;
+        height: 72px;
+
+    }
+
+
+    section {
+        margin: 20px 30px 50px 30px;
+    }
+
+    .portfolio {
+        margin: 20px 30px 100px 30px;
+    }
+
+}
+
+@media screen and (max-width: 481px) {
+
+    .modal {
+        padding: 15px;
+    }
+
+    .filters-wrapper {
+        margin-top: unset;
+        gap: unset;
+        flex-direction: column;
+    }
+
+    .gallery-card {
+        width: 300px;
+        height: 290px;
+    }
+
+    .gallery-card__media {
+        height: 240px;
+    }
+
+    .carousel-arrow {
+        position: absolute;
+    }
+
+    .arrow-prev {
+        left: 0;
+    }
+
+    .arrow-next {
+        right: 0;
+    }
+
 }

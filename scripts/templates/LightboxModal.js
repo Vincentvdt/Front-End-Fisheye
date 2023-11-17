@@ -12,7 +12,7 @@ const lightboxModalTemplate = () => {
             </svg> 
           </button>
           <div class="lightbox-carousel">
-            <a aria-label="Previous image" class="carousel-arrow arrow-prev" href="" role="button">
+            <a aria-label="Previous image" class="carousel-arrow arrow-prev" href="">
               <svg fill="none" height="96" viewBox="0 0 96 96" width="96" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_120_800)">
                   <path d="M61.6399 66.36L43.3199 48L61.6399 29.64L55.9999 24L31.9999 48L55.9999 72L61.6399 66.36Z"
@@ -30,7 +30,7 @@ const lightboxModalTemplate = () => {
               </div>
               <h2 class="carousel-img_title" id="lightboxTitle">Title</h2>
             </div>
-            <a aria-label="Next image" class="carousel-arrow arrow-next" href="" role="button">
+            <a aria-label="Next image" class="carousel-arrow arrow-next" href="">
               <svg fill="none" height="96" viewBox="0 0 96 96" width="96" xmlns="http://www.w3.org/2000/svg">
                 <g clip-path="url(#clip0_120_803)">
                   <path d="M34.3601 29.64L52.6801 48L34.3601 66.36L40.0001 72L64.0001 48L40.0001 24L34.3601 29.64Z"

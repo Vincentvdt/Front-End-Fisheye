@@ -16,7 +16,7 @@ const photographerTemplate = (data) => {
         <div class="profile-card__info">
           <p class="profile-location">${city}, ${country}</p>
           <p class="profile-tagline">${tagline}</p>
-          <p class="profile-price" aria-label="Cout journalier">${price}€/jour</p>
+          <p class="profile-price">${price}€/jour</p>
         </div>
       </div>
 

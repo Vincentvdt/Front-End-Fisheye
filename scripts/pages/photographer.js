@@ -65,8 +65,8 @@ const photographePage = () => {
         <div class="photograph-header__content">
           <div class="photograph-header__infos">
             <h1 class="photograph-header__name">${photographer.name}</h1>
-            <p class="photograph-header__location">${photographer.city}, ${photographer.country}</p>
-            <p class="photograph-header__tagline"><${photographer.tagline}</p>
+            <h2 class="photograph-header__location">${photographer.city}, ${photographer.country}</h2>
+            <p class="photograph-header__tagline">${photographer.tagline}</p>
           </div>
           <button class="btn-contact" aria-label="Contact Me">Contactez-moi</button>
         </div>
@@ -85,15 +85,15 @@ const photographePage = () => {
       <section class="portfolio">
         <div class="filters-wrapper" >
           <p class="filter-label">Trier par :</p>
-            <div class="filter-selected" id="selectedInput" data-selected="${filter}" tabindex="0" role="button" aria-haspopup=”listbox”>
+            <div class="filter-selected" id="selectedInput" data-selected="${filter}" tabindex="0" aria-haspopup="listbox">
               <p>${frTradMap[filter] || filter}</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">
                   <path d="M22.12 11.4531L16 17.5598L9.88 11.4531L8 13.3331L16 21.3331L24 13.3331L22.12 11.4531Z" fill="red"/>
               </svg>
-              <ul class="filter-options" role=”listbox” aria-labelledby="selectedInput">
-                <li class="filter-item" data-value="popularity" tabindex="1">Popularité</li>
-                <li class="filter-item" data-value="date" tabindex="1">Date</li>
-                <li class="filter-item" data-value="title" tabindex="1">Titre</li>
+              <ul class="filter-options" role="listbox" aria-labelledby="selectedInput">
+                <li class="filter-item" role="option" data-value="popularity" tabindex="1">Popularité</li>
+                <li class="filter-item" role="option" data-value="date" tabindex="1">Date</li>
+                <li class="filter-item" role="option" data-value="title" tabindex="1">Titre</li>
               </ul>
             </div>
         </div>
@@ -166,7 +166,7 @@ const photographePage = () => {
   };
   const createContactModal = () => {
     // eslint-disable-next-line no-undef
-    const template = contactModalTemplate();
+    const template = contactModalTemplate(photographer.name);
     return template.getContactModalDOM();
   };
   const createLightboxModal = () => {
@@ -194,6 +194,8 @@ const photographePage = () => {
         toggleSelect();
       } else if (focusedElement.classList.contains("filter-item") && filterBtn.classList.contains("open")) {
         selectOption(focusedElement);
+      } else if (focusedElement.classList.contains("likeBtn")) {
+        console.log("like");
       }
     };
 
@@ -218,15 +220,17 @@ const photographePage = () => {
       const selected = Array.from(filtersOptions).find(option => option.dataset.value === filter);
       filtersOptions.forEach(option => {
         option.style.display = option === selected ? "none" : "block";
-        option === selected ? option.setAttribute("aria-selected", "") : option.removeAttribute("aria-selected");
+        option === selected ? option.setAttribute("aria-selected", true) : option.removeAttribute("aria-selected");
       });
       visibleOptions = Array.from(filtersOptions).filter(option => option !== selected);
     };
+
     const toggleSelect = () => {
       if (filterBtn.classList.contains("open")) {
         // Close select
         closeSelect();
         toggleOptions();
+        document.activeElement.blur();
         filterBtn.focus();
       } else {
         // Open Select
@@ -241,7 +245,23 @@ const photographePage = () => {
       });
     };
 
+    const getFocusableElements = () => {
+      const focusableElementsString =
+        "video, a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex=\"0\"], [contenteditable]";
+      return document.querySelectorAll(focusableElementsString);
+    };
     const openSelect = () => {
+      const focusableElements = getFocusableElements();
+      focusableElements.forEach((elem) => {
+        if (!filterBtn.contains(elem)) {
+          elem.setAttribute("tabindex", "-1");
+        }
+      });
+      for (const element of body.children) {
+        if (!filterBtn.contains(element) && element.tagName !== "SCRIPT") {
+          element.setAttribute("aria-hidden", "true");
+        }
+      }
       filterBtn.removeAttribute("tabindex");
       filterBtn.setAttribute("aria-expanded", "");
       filtersOptions.forEach(option => {
@@ -252,6 +272,17 @@ const photographePage = () => {
       visibleOptions[0].focus();
     };
     const closeSelect = () => {
+      const focusableElements = getFocusableElements();
+      focusableElements.forEach((elem) => {
+        if (!filterBtn.contains(elem)) {
+          elem.removeAttribute("tabindex");
+        }
+      });
+      for (const element of body.children) {
+        if (!filterBtn.contains(element) && element.tagName !== "SCRIPT") {
+          element.setAttribute("aria-hidden", "false");
+        }
+      }
       filterBtn.setAttribute("tabindex", "0");
       filterBtn.removeAttribute("aria-expanded");
       filtersOptions.forEach(option => {

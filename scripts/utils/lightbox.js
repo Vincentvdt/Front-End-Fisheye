@@ -5,6 +5,7 @@ const _lightbox = (_medias) => {
   const modal = _modal(lightboxDOM);
   let index = 0;
   let medias = _medias;
+  const arrowRight = document.querySelector(".carousel-arrow.arrow-next");
 
   const nextImage = async (e) => {
     e.preventDefault();
@@ -31,6 +32,8 @@ const _lightbox = (_medias) => {
     displayImage()
       .then(() => {
         modal.show();
+        document.activeElement.blur();
+        arrowRight.focus();
         document.addEventListener("keydown", setNavigation);
       });
 
