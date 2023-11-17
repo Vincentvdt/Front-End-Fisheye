@@ -363,7 +363,4 @@ const photographe = photographePage();
 
 photographe.init(id).then(() => "success");
 
-// TODO :
-//  - Responsive
-
 
